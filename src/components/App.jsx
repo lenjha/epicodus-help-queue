@@ -1,7 +1,7 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import Header from "./Header";
-import TicketList from "./TicketList";
+import React from 'react'
+// import ReactDOM from 'react-dom'
+import Header from './Header'
+import TicketList from './TicketList'
 
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
       <Header />
       <TicketList />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

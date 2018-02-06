@@ -1,5 +1,5 @@
-import React from "react";
-import Ticket from "./Ticket"
+import React from 'react'
+import Ticket from './Ticket'
 
 function TicketList() {
   return (
@@ -7,7 +7,7 @@ function TicketList() {
       location="2B"
       names="Mikey and Griffin"
       issue="React not working in Atom!"/>
-  );
+  )
 }
 
-export default TicketList;
+export default TicketList

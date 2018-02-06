@@ -10,10 +10,60 @@ apm i react@0.16.2
 node_modules
 build
 
-npm install webpack@3.4.0 webpack-dev-server@2.5.0 -g
+npm install webpack@3.4.0 webpack-dev-server@2.5.0 eslint eslint-plugin-react -g
 npm install react@15.5.4 react-dom@15.5.4 prop-types@15.5.10 --save
 
 npm install webpack@3.4.0 babel-core@6.24.1 babel-loader@7.0.0 babel-preset-es2015@6.24.1 babel-preset-react@6.24.1 webpack-dev-server@2.5.0 react-hot-loader@3.0.0-beta.7 html-webpack-plugin@2.29.0 --save-dev
+
+eslint --init
+  ? Answer questions about your style
+  ? Are you using ECMAScript 6 features? Yes
+  ? Are you using ES6 modules? Yes
+  ? Where will your code run? Browser
+  ? Do you use CommonJS? No
+  ? Do you use JSX? Yes
+  ? Do you use React? Yes
+  ? What style of indentation do you use? Spaces
+  ? What quotes do you use for strings? Single
+  ? What line endings do you use? Unix
+  ? Do you require semicolons? Yes
+  ? What format do you want your config file to be in? JSON
+
+.eslintrc.json
+  "rules": {
+    "react/jsx-uses-vars": 2,
+    "react/jsx-uses-react": 2,
+    "react/jsx-no-duplicate-props": 2,
+    "react/jsx-no-undef": 2,
+    "react/no-multi-comp": 2,
+    "react/jsx-indent-props": [
+        "error",
+        2
+      ],
+    "react/jsx-pascal-case": 2,
+    "react/prop-types": 2,
+    "react/jsx-indent": [
+        "error",
+        2
+    ],
+    "indent": [
+        "error",
+        2
+    ],
+    "linebreak-style": [
+        "error",
+        "unix"
+    ],
+    "quotes": [
+        "error",
+        "single"
+    ],
+    "semi": [
+        "error",
+        "always"
+    ]
+  }
+    ***** /*eslint-disable */    /*eslint-enable */   *****
 
 ###webpack.config.js###
 const webpack = require('webpack');
@@ -50,6 +100,16 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.jsx?$/,
+        enforce: "pre",
+        loader: "eslint-loader",
+        exclude: /node_modules/,
+        options: {
+          emitWarning: true,
+          configFile: "./.eslintrc.json"
+          }
+        },
+        {
         test: /\.jsx?$/,
         loader: "babel-loader",
         exclude: /node_modules/,
@@ -93,6 +153,7 @@ module.exports = {
 
 ###package.json###
 "scripts": {
+  "lint": "eslint src/** src/**/**; exit 0",
   "test": "echo \"Error: no test specified\" && exit 1",
   "start":  "webpack-dev-server"
 },
