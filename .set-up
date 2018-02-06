@@ -200,10 +200,15 @@ export default App;
 
 
 
-###RUN###
+###SERVE BUILD ERROR CHECK###
 $ webpack-dev-server
     ***If you alter anything but a component (configuration files, entry points, HTML templates, etc.) you'll still have to restart the server for changes to take place.***
 
 $ npm run start
     ***we should see Webpack runs the $ webpack-dev-server to both compile our project, and launches our development server.
     It might not feel efficient to map one command to another command like this, but it's actually best practice. start is standard naming convention for scripts that launch a project. Since React is a library that can be combined with countless other tools, the command to start a React app isn't always the same. If a developer isn't using webpack-dev-server, their app will have a different command. But, by mapping whatever your launch command is to $ npm run start, any developer can use the same industry standard to launch your application. Pretty cool!***
+
+$ npm run lint
+    ***Check for syntax errors***
+$ npm run lint-fix
+    ***Fix syntax errors***
