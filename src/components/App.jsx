@@ -1,6 +1,9 @@
 import React from 'react'
 // import ReactDOM from 'react-dom'
+import { Switch, Route } from 'react-router-dom'
+
 import Header from './Header'
+import NewTicketForm from './NewTicketForm'
 import TicketList from './TicketList'
 
 
@@ -29,6 +32,10 @@ function App() {
       <div style={{margin: '19px auto 0', width: 800}}>
         <div className="box">
           <Header />
+          <Switch>
+            <Route exact path='/' component={TicketList} />
+            <Route path='/newticket' component={NewTicketForm} />
+          </Switch>
         </div>
         <TicketList />
       </div>
