@@ -10,10 +10,11 @@ apm i react@0.16.2
 node_modules
 build
 
+npm install uuid@3.2.1
 npm install webpack@3.4.0 webpack-dev-server@2.5.0 eslint eslint-plugin-react -g
 npm install react@15.5.4 react-dom@15.5.4 prop-types@15.5.10 react-router-dom@4.0.0 --save
 
-npm install webpack@3.4.0 babel-core@6.24.1 babel-loader@7.0.0 babel-preset-es2015@6.24.1 babel-preset-react@6.24.1 webpack-dev-server@2.5.0 react-hot-loader@3.0.0-beta.7 html-webpack-plugin@2.29.0 --save-dev
+npm install webpack@3.4.0 babel-core@6.24.1 babel-loader@7.0.0 babel-preset-es2015@6.24.1 babel-preset-react@6.24.1 webpack-dev-server@2.5.0 react-hot-loader@3.0.0-beta.7 html-webpack-plugin@2.29.0 eslint-loader url-loader@0.6.2 file-loader@1.1.6 --save-dev
 
 npm install --save styled-jsx
 
@@ -31,43 +32,55 @@ eslint --init
   ? Do you require semicolons? Yes
   ? What format do you want your config file to be in? JSON
 
-.eslintrc.json
-  "rules": {
-    "react/jsx-uses-vars": 2,
-    "react/jsx-uses-react": 2,
-    "react/jsx-no-duplicate-props": 2,
-    "react/jsx-no-undef": 2,
-    "react/no-multi-comp": 2,
-    "react/jsx-indent-props": [
-        "error",
-        2
-      ],
-    "react/jsx-pascal-case": 2,
-    "react/prop-types": 2,
-    "react/jsx-indent": [
-        "error",
-        2
+###.eslintrc.json###
+{
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true,
+            "jsx": true
+        },
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
     ],
-    "indent": [
-        "error",
-        2
-    ],
-    "linebreak-style": [
-        "error",
-        "unix"
-    ],
-    "quotes": [
-        "error",
-        "single"
-    ],
-    "semi": [
-        "error",
-        "always"
-    ]
-  }
+    "rules": {
+        "react/jsx-handler-names": 2,
+        "react/no-unused-state": 2,
+        "react/prefer-stateless-function": 2,
+        "react/no-direct-mutation-state": 2,
+        "react/jsx-key": 2,
+        "react/jsx-uses-vars": 2,
+        "react/jsx-uses-react": 2,
+        "indent": [
+            "error",
+            2
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ]
+    }
+}
+
+    TO ENABLE AND DISABLE LINTER
     ***** /*eslint-disable */    /*eslint-enable */   *****
 
 ###webpack.config.js###
+/*eslint-disable */
 const webpack = require('webpack');
 const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -125,6 +138,16 @@ module.exports = {
             "styled-jsx/babel"
           ]
         }
+      },
+      {
+        test: /\.(png|gif|jp(e*)g|svg)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 8000,
+            name: 'images/[hash]-[name].[ext]'
+          }
+        }
       }
     ],
   },
@@ -140,6 +163,7 @@ module.exports = {
     }),
   ]
 };
+/*eslint-enable */
 
 ###template.ejs
 <!DOCTYPE html>
@@ -179,11 +203,13 @@ const render = (Component) => {
 
 render(App);
 
+/*eslint-disable */
 if (module.hot) {
   module.hot.accept('./components/App', () => {
     render(App)
   });
 }
+/*eslint-enable */
 
 ###App.jsx###
 import React from "react";
