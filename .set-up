@@ -10,6 +10,9 @@ apm i react@0.16.2
 node_modules
 build
 
+(IF YOU ARE USING MOMENT)
+  npm install moment@2.18.1
+
 npm install uuid@3.2.1
 npm install webpack@3.4.0 webpack-dev-server@2.5.0 eslint eslint-plugin-react -g
 npm install react@15.5.4 react-dom@15.5.4 prop-types@15.5.10 react-router-dom@4.0.0 --save
