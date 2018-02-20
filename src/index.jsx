@@ -3,14 +3,23 @@ import ReactDOM from 'react-dom';
 import App from './components/App';
 import { HashRouter } from 'react-router-dom';
 import { AppContainer } from 'react-hot-loader';
+import { createStore } from 'redux';
+import ticketListReducer from './reducers/ticket-list-reducer';
+import { Provider } from 'react-redux';
+
+const store = createStore(ticketListReducer);
+
+let unsubscribe = store.subscribe(() =>
+  console.log(store.getState())
+);
 
 const render = (Component) => {
   ReactDOM.render(
-    <AppContainer>
       <HashRouter>
-        <Component/>
-      </HashRouter>
-    </AppContainer>,
+        <Provider store={store}>
+          <Component/>
+        </Provider>
+      </HashRouter>,
     document.getElementById('react-app-root')
   );
 };
